@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "yazi": "node scripts/yeni-yazi.mjs"
+    "yazi": "node scripts/yeni-yazi.mjs",
+    "yayinla": "node scripts/yayinla.mjs",
+    "izle": "node scripts/yayinla.mjs --watch"
   },
   "dependencies": {
     "marked": "^15.0.12",

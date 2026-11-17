@@ -2,23 +2,28 @@
 
 Yazılar `content/blog/` klasöründeki Markdown dosyalarıdır. GitHub'a giden her değişiklik yaklaşık 30 saniyede siteye yansır.
 
-## Yol 1: Bilgisayardan (önerilen)
+## Yol 1: Bilgisayardan, otomatik gönderimle (önerilen)
+
+1. Masaüstündeki **Blog Yazma Modu** kısayoluna çift tıkla. VS Code yazı klasörüyle açılır, yanında küçük bir siyah pencere açık kalır. Bu pencere açık olduğu sürece kaydettiğin yazılar **20 saniye sonra kendiliğinden siteye gönderilir**.
+2. Yeni yazı için `content/blog` içinde yeni bir dosya aç ya da terminalde şunu çalıştır:
+   ```bash
+   npm run yazi -- "Ludra'yı neden JSON tabanlı yaptım"
+   ```
+   Bu komut dosyayı bugünün tarihiyle ve **taslak** olarak oluşturur. İngilizce yazı için sonuna `--en` ekle.
+3. Yaz ve kaydet (Ctrl+S). Dosyada `draft: true` olduğu sürece hiçbir yere gönderilmez, yalnızca senin bilgisayarında kalır.
+4. Yazı hazır olunca `draft: true` satırını sil ve kaydet. 20 saniye sonra gönderilir, 30 saniye sonra da sitede olur. Siyah pencere ne zaman gönderdiğini yazar.
+
+Siyah pencereyi kapatınca otomatik gönderme durur. Pencere kapalıyken yazdıklarını göndermek için:
 
 ```bash
-npm run yazi -- "Ludra'yı neden JSON tabanlı yaptım"
+npm run yayinla
 ```
 
-Bu komut `content/blog/ludrayi-neden-json-tabanli-yaptim.tr.md` dosyasını bugünün tarihiyle ve **taslak** olarak oluşturur. İngilizce yazı için sonuna `--en` ekle.
+**Neden taslaklar gönderilmiyor:** GitHub deposu herkese açık. Taslak gönderilseydi sitede görünmese bile GitHub'da okunabilirdi.
 
-1. Dosyayı VS Code'da aç ve yaz.
-2. `npm run dev` çalıştır ve http://localhost:3000/tr/blog adresini aç. Taslaklar yalnızca burada, "DRAFT" etiketiyle görünür.
-3. Yazı hazır olunca `draft: true` satırını sil.
-4. Gönder:
-   ```bash
-   git add content/blog
-   git commit -m "Yeni yazı: Ludra'yı neden JSON tabanlı yaptım"
-   git push
-   ```
+**Yayınlamadan önce bakmak istersen:** `npm run dev` çalıştırıp http://localhost:3000/tr/blog adresini aç. Taslaklar orada "DRAFT" etiketiyle görünür.
+
+**Yayınlanmış bir yazıyı silmek:** dosyayı sil. Pencere açıksa silme işlemi de siteye gönderilir.
 
 ## Yol 2: Telefondan ya da tarayıcıdan
 

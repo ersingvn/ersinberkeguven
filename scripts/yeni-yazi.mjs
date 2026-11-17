@@ -42,4 +42,4 @@ Buraya yaz.
 
 console.log(`Oluşturuldu: ${file}
 Önizleme: npm run dev, sonra http://localhost:3000/${lang}/blog/${slug}
-Yayınlamak için: draft: true satırını sil, sonra commit + push.`);
+Yayınlamak için: draft: true satırını sil. "Blog Yazma Modu" açıksa kendiliğinden gider, değilse: npm run yayinla`);
