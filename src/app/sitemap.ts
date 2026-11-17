@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/projects",
     "/blog",
     "/about",
-    "/cv",
+    "/store",
     ...projects.map((p) => `/projects/${p.slug}`),
     ...allSlugs().map((s) => `/blog/${s}`),
   ];

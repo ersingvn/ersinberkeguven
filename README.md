@@ -41,4 +41,4 @@ Yazının kendisi, Markdown olarak.
 - `/projects`, `/projects/<slug>`
 - `/blog`, `/blog/<slug>`
 - `/about`
-- `/cv`: yazdırılabilir özgeçmiş ("PDF olarak kaydet" düğmesi)
+- `/store`: mağaza. Ürünler `src/content/site.ts` içindeki `products` listesinden gelir; liste boşken "Yakında" görünür.

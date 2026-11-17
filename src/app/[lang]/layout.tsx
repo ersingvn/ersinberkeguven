@@ -49,7 +49,7 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
     { href: "/projects", label: t.nav.projects },
     { href: "/blog", label: t.nav.blog },
     { href: "/about", label: t.nav.about },
-    { href: "/cv", label: t.nav.cv },
+    { href: "/store", label: t.nav.store },
   ];
 
   return (

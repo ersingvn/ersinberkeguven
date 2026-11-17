@@ -222,8 +222,32 @@ export const courses: T[] = [
   { tr: "İşletim Sistemleri ve Ağlar", en: "Operating Systems and Networks" },
 ];
 
-export const education = {
-  school: { tr: "Yaşar Üniversitesi", en: "Yaşar University" } as T,
-  degree: { tr: "Yazılım Mühendisliği (Lisans)", en: "B.Sc. Software Engineering" } as T,
-  years: { tr: "2023 – 2028 (beklenen)", en: "2023 – 2028 (expected)" } as T,
+/*
+ * Store products. While this list is empty the store shows "Coming soon".
+ * Payment happens on the platform behind `url` (e.g. a Gumroad / Shopier /
+ * Lemon Squeezy product page); this site never handles card details.
+ *
+ * Example:
+ *   {
+ *     slug: "ludra-platformer-kit",
+ *     name: "Ludra Platformer Kit",
+ *     summary: { tr: "Hazır platform oyunu şablonu…", en: "A ready platformer template…" },
+ *     includes: { tr: ["10 seviye", "Kaynak kod", "Ses efektleri"], en: ["10 levels", "Source code", "Sound effects"] },
+ *     price: "₺149",          // or "Ücretsiz" / leave "" for free
+ *     format: "ZIP · 24 MB",
+ *     url: "https://…",       // checkout page; leave "" to show "Soon"
+ *     image: "/store/ludra-platformer-kit.png", // optional, file in public/store/
+ *   },
+ */
+export type Product = {
+  slug: string;
+  name: string;
+  summary: T;
+  includes?: Record<keyof T, string[]>;
+  price: string;
+  format?: string;
+  url: string;
+  image?: string;
 };
+
+export const products: Product[] = [];

@@ -14,7 +14,7 @@ const ui = {
     projects: { tr: "Projeler", en: "Projects" },
     blog: { tr: "Yazılar", en: "Writing" },
     about: { tr: "Hakkımda", en: "About" },
-    cv: { tr: "CV", en: "CV" },
+    store: { tr: "Mağaza", en: "Store" },
   },
   home: {
     now: { tr: "Şu an", en: "Now" },
@@ -54,12 +54,21 @@ const ui = {
     courses: { tr: "Bu dönem okuduğum dersler", en: "Courses this term" },
     contact: { tr: "İletişim", en: "Contact" },
   },
-  cv: {
-    title: { tr: "Özgeçmiş", en: "Résumé" },
-    print: { tr: "PDF olarak kaydet", en: "Save as PDF" },
-    education: { tr: "Eğitim", en: "Education" },
-    projects: { tr: "Projeler", en: "Projects" },
-    skills: { tr: "Teknik beceriler", en: "Skills" },
+  store: {
+    title: { tr: "Mağaza", en: "Store" },
+    intro: {
+      tr: "Kendi projelerimden çıkan dijital ürünler. Ödeme, güvenilir bir ödeme platformunda yapılır; kart bilgin bu siteye hiç gelmez.",
+      en: "Digital products that come out of my own projects. Checkout happens on a trusted payment platform; your card details never touch this site.",
+    },
+    soonTitle: { tr: "Yakında", en: "Coming soon" },
+    soonText: {
+      tr: "İlk ürünler hazırlanıyor. Çıktığında haberin olsun istersen beni takip et:",
+      en: "The first products are on the way. Follow me to hear when they're out:",
+    },
+    buy: { tr: "Satın al", en: "Buy" },
+    get: { tr: "İndir", en: "Get it" },
+    free: { tr: "Ücretsiz", en: "Free" },
+    soon: { tr: "Yakında", en: "Soon" },
   },
   footer: {
     source: { tr: "Bu sitenin kaynak kodu", en: "Source of this site" },
