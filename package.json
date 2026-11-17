@@ -9,7 +9,8 @@
     "lint": "eslint",
     "yazi": "node scripts/yeni-yazi.mjs",
     "yayinla": "node scripts/yayinla.mjs",
-    "izle": "node scripts/yayinla.mjs --watch"
+    "izle": "node scripts/yayinla.mjs --watch",
+    "editor": "node scripts/editor/server.mjs"
   },
   "dependencies": {
     "marked": "^15.0.12",

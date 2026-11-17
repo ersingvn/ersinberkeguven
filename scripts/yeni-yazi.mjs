@@ -1,6 +1,7 @@
 // Creates a draft post: npm run yazi -- "Yazının başlığı" [--en]
 import fs from "node:fs";
 import path from "node:path";
+import { slugify } from "./lib/publish.mjs";
 
 const args = process.argv.slice(2);
 const lang = args.includes("--en") ? "en" : "tr";
@@ -11,12 +12,7 @@ if (!title) {
   process.exit(1);
 }
 
-const slug = title
-  .toLocaleLowerCase("tr")
-  .replace(/ç/g, "c").replace(/ğ/g, "g").replace(/ı/g, "i").replace(/ö/g, "o").replace(/ş/g, "s").replace(/ü/g, "u")
-  .normalize("NFD").replace(/[̀-ͯ]/g, "")
-  .replace(/[^a-z0-9]+/g, "-")
-  .replace(/^-+|-+$/g, "");
+const slug = slugify(title);
 
 const today = new Date();
 const date = [today.getFullYear(), today.getMonth() + 1, today.getDate()].map((n) => String(n).padStart(2, "0")).join("-");

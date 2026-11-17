@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yazı editörü</title>
+    <link rel="icon" href="/ersin-avatar.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="/app/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="side">
+        <div class="side-head">
+          <img src="/ersin-avatar.jpg" alt="" />
+          <div>
+            <div class="name">Yazılar</div>
+            <a id="site-link" href="https://ersinberkeguven.vercel.app/tr/blog" target="_blank" rel="noreferrer">Siteyi aç ↗</a>
+          </div>
+        </div>
+        <div class="side-actions">
+          <button class="btn primary" id="new-post">Yeni yazı</button>
+          <input class="search" id="search" type="search" placeholder="Ara…" />
+        </div>
+        <nav class="list" id="list"></nav>
+      </aside>
+
+      <main class="main">
+        <div class="bar" id="bar" hidden>
+          <div class="status" id="status"></div>
+          <div class="spacer"></div>
+          <div class="seg" id="view" role="group" aria-label="Görünüm">
+            <button data-view="write">Yaz</button>
+            <button data-view="split">Böl</button>
+            <button data-view="preview">Önizle</button>
+          </div>
+          <a class="btn ghost" id="open-live" target="_blank" rel="noreferrer" hidden>Sitede gör ↗</a>
+          <div class="menu-wrap">
+            <button class="btn ghost" id="more" aria-haspopup="true" aria-label="Diğer">•••</button>
+            <div class="menu" id="menu" hidden>
+              <button id="m-unpublish">Yayından kaldır</button>
+              <hr />
+              <button class="danger" id="m-delete">Yazıyı sil</button>
+            </div>
+          </div>
+          <button class="btn primary" id="publish">Yayınla</button>
+        </div>
+
+        <div class="empty" id="empty">
+          <h2>Ne yazmak istersin?</h2>
+          <p>Soldan bir yazı seç ya da yeni bir tane başlat. Yazdıkların kendiliğinden kaydedilir; "Yayınla"ya basana kadar yalnızca bu bilgisayarda kalır.</p>
+          <button class="btn primary" id="new-post-2">Yeni yazı</button>
+        </div>
+
+        <div class="panes split" id="panes" hidden>
+          <section class="pane write-pane" id="write-pane">
+            <div class="col">
+              <textarea class="title-input" id="title" rows="1" placeholder="Başlık"></textarea>
+              <input class="summary-input" id="summary" placeholder="Bir cümlelik özet (yazı listesinde görünür)" />
+              <div class="meta-row">
+                <input type="date" id="date" aria-label="Tarih" />
+                <select id="lang" aria-label="Dil">
+                  <option value="tr">Türkçe</option>
+                  <option value="en">English</option>
+                </select>
+                <span class="addr" id="addr"></span>
+              </div>
+              <div class="toolbar" id="toolbar">
+                <button data-cmd="h2" title="Ara başlık">H2</button>
+                <button data-cmd="h3" title="Küçük başlık">H3</button>
+                <span class="sep"></span>
+                <button data-cmd="bold" class="b" title="Kalın (Ctrl+B)">B</button>
+                <button data-cmd="italic" class="i" title="İtalik (Ctrl+I)">I</button>
+                <button data-cmd="link" title="Link (Ctrl+K)">Link</button>
+                <span class="sep"></span>
+                <button data-cmd="ul" title="Madde listesi">•</button>
+                <button data-cmd="ol" title="Sıralı liste">1.</button>
+                <button data-cmd="quote" title="Alıntı">“ ”</button>
+                <span class="sep"></span>
+                <button data-cmd="code" class="c" title="Satır içi kod">`</button>
+                <button data-cmd="codeblock" class="c" title="Kod bloğu">{ }</button>
+                <button data-cmd="image" title="Resim ekle (yapıştırabilir ya da sürükleyebilirsin)">Resim</button>
+                <input type="file" id="file" accept="image/*" hidden />
+              </div>
+              <textarea class="body-input" id="body" placeholder="Yazmaya başla. Markdown kullanabilirsin; resimleri buraya yapıştırabilir ya da sürükleyebilirsin."></textarea>
+            </div>
+          </section>
+          <section class="pane preview" id="preview-pane">
+            <div class="col">
+              <div class="p-label">Önizleme</div>
+              <h1 class="p-title" id="p-title"></h1>
+              <div class="p-date" id="p-date"></div>
+              <div class="prose" id="p-body"></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="foot" id="foot" hidden>
+          <span id="words"></span>
+          <span id="read"></span>
+          <span class="spacer"></span>
+          <span id="saved"></span>
+        </div>
+      </main>
+    </div>
+
+    <div class="drop-hint">Resmi bırak, yazıya eklensin</div>
+
+    <dialog id="dialog">
+      <h3 id="d-title"></h3>
+      <p id="d-text"></p>
+      <ul id="d-list"></ul>
+      <div class="actions">
+        <button class="btn" id="d-cancel">Vazgeç</button>
+        <button class="btn primary" id="d-ok"></button>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/app/app.js"></script>
+  </body>
+</html>

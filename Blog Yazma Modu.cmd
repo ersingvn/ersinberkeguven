@@ -1,6 +1,5 @@
 @echo off
-rem Opens the posts folder in VS Code and publishes saved posts automatically.
+rem Opens the blog writing app. Keep this window open while writing.
 cd /d "%~dp0"
-title Blog yazma modu - kapatinca otomatik gonderme durur
-start "" code "%~dp0" "%~dp0content\blog"
-npm run izle
+title Yazi editoru - kapatinca editor de kapanir
+npm run editor

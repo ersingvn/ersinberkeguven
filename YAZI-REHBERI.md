@@ -2,9 +2,24 @@
 
 Yazılar `content/blog/` klasöründeki Markdown dosyalarıdır. GitHub'a giden her değişiklik yaklaşık 30 saniyede siteye yansır.
 
-## Yol 1: Bilgisayardan, otomatik gönderimle (önerilen)
+## Yol 1: Yazı editörü (önerilen)
 
-1. Masaüstündeki **Blog Yazma Modu** kısayoluna çift tıkla. VS Code yazı klasörüyle açılır, yanında küçük bir siyah pencere açık kalır. Bu pencere açık olduğu sürece kaydettiğin yazılar **20 saniye sonra kendiliğinden siteye gönderilir**.
+Masaüstündeki **Blog Yazma Modu** kısayoluna çift tıkla (ya da `npm run editor`). Yazı editörü kendi penceresinde açılır. Yanında küçük bir siyah pencere de açılır; editör onunla çalışır, o pencereyi kapatma.
+
+- **Yeni yazı** → başlık, özet ve yazının kendisi. Yazdıkların kendiliğinden kaydedilir.
+- **Yaz / Böl / Önizle**: yazarken yazının sitede nasıl görüneceğini yanda görürsün.
+- Araç çubuğu: başlık, kalın, italik, link, liste, alıntı, kod, resim. Kısayollar: Ctrl+B, Ctrl+I, Ctrl+K, Ctrl+S.
+- **Resim:** kopyalayıp yazının içine yapıştır (Ctrl+V) ya da dosyayı sürükleyip bırak.
+- Yazı **taslak** olarak başlar ve yalnızca bu bilgisayarda durur. **Yayınla**'ya basınca kısa bir kontrol listesi çıkar, onaylarsın, yaklaşık 30 saniye sonra yazı sitede olur.
+- Yayındaki bir yazıyı düzenlersen değişiklikler, yazmayı bıraktıktan 20 saniye sonra kendiliğinden gönderilir. Üstteki çubuk kaç saniye kaldığını gösterir; beklemek istemezsen **Şimdi gönder**'e bas.
+- **••• menüsü:** *Yayından kaldır* yazıyı siteden alır ama taslak olarak saklar. *Sil* yazıyı tamamen siler.
+- Yazının adresi yayınlanana kadar başlığa göre değişir, yayınlandıktan sonra sabit kalır.
+
+## Yol 2: VS Code ile, otomatik gönderimle
+
+Markdown dosyalarını doğrudan VS Code'da yazmayı tercih edersen:
+
+1. Terminalde `npm run izle` çalıştır. Bu pencere açık olduğu sürece kaydettiğin yazılar **20 saniye sonra kendiliğinden siteye gönderilir**. Editörle aynı anda çalıştırma, ikisi aynı işi yapıyor.
 2. Yeni yazı için `content/blog` içinde yeni bir dosya aç ya da terminalde şunu çalıştır:
    ```bash
    npm run yazi -- "Ludra'yı neden JSON tabanlı yaptım"
@@ -25,7 +40,7 @@ npm run yayinla
 
 **Yayınlanmış bir yazıyı silmek:** dosyayı sil. Pencere açıksa silme işlemi de siteye gönderilir.
 
-## Yol 2: Telefondan ya da tarayıcıdan
+## Yol 3: Telefondan ya da tarayıcıdan
 
 Bu linki aç (yer imlerine ekleyebilirsin):
 
