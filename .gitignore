@@ -42,3 +42,6 @@ next-env.d.ts
 
 # original, uncropped photos (not published)
 /_orijinal/
+
+.vercel
+.env*

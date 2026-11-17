@@ -3,8 +3,8 @@ import { projects } from "@/content/site";
 import { locales } from "@/lib/i18n";
 import { allSlugs } from "@/lib/posts";
 
-// Set this to the real address once the site is online.
-const base = process.env.SITE_URL ?? "http://localhost:3000";
+// Change this if the site moves to its own domain.
+const base = process.env.SITE_URL ?? "https://ersinberkeguven.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
