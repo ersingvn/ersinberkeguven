@@ -604,6 +604,9 @@ window.addEventListener("beforeunload", () => {
   });
 });
 
+// Tells the background server the window is gone, so it can stop (after sending anything pending).
+window.addEventListener("pagehide", () => navigator.sendBeacon("/api/bye"));
+
 // ---------- start ----------
 
 setView(view);

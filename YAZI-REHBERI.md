@@ -4,7 +4,9 @@ Yazılar `content/blog/` klasöründeki Markdown dosyalarıdır. GitHub'a giden 
 
 ## Yol 1: Yazı editörü (önerilen)
 
-Masaüstündeki **Blog Yazma Modu** kısayoluna çift tıkla (ya da `npm run editor`). Yazı editörü kendi penceresinde açılır. Yanında küçük bir siyah pencere de açılır; editör onunla çalışır, o pencereyi kapatma.
+Masaüstündeki **Blog Yazma Modu** kısayoluna çift tıkla. Yazı editörü doğrudan kendi penceresinde açılır. İşin bitince pencereyi kapat; arkada çalışan küçük sunucu da kendiliğinden kapanır (gönderilmeyi bekleyen bir değişiklik varsa önce onu gönderir).
+
+Terminalden açmak istersen: `npm run editor`. Bir sorun olursa ayrıntılar proje klasöründeki `.editor.log` dosyasına yazılır.
 
 - **Yeni yazı** → başlık, özet ve yazının kendisi. Yazdıkların kendiliğinden kaydedilir.
 - **Yaz / Böl / Önizle**: yazarken yazının sitede nasıl görüneceğini yanda görürsün.

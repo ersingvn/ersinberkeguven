@@ -26,7 +26,15 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const QUIET_MS = 20_000;
 const FILE_RE = /^[a-z0-9][a-z0-9-]*\.(tr|en)\.md$/;
 
-const log = (msg) => console.log(`[${new Date().toLocaleTimeString("tr-TR")}] ${msg}`);
+// The editor usually runs with no console window, so it also logs to a file.
+const LOG_FILE = path.join(ROOT, ".editor.log");
+const log = (msg) => {
+  const line = `[${new Date().toLocaleString("tr-TR")}] ${msg}`;
+  console.log(line);
+  try {
+    fs.appendFileSync(LOG_FILE, `${line}\n`);
+  } catch {}
+};
 const today = () => {
   const d = new Date();
   return [d.getFullYear(), d.getMonth() + 1, d.getDate()].map((n) => String(n).padStart(2, "0")).join("-");
@@ -67,6 +75,40 @@ function schedule(ms = QUIET_MS) {
   state.dueAt = Date.now() + ms;
   timer = setTimeout(runPublish, ms);
 }
+
+// ---------- lifetime ----------
+// There is no window to close, so the server stops on its own once the app
+// window is gone: right after the window says goodbye, or after a long silence
+// (a minimized window polls slowly, so the silence limit is generous).
+
+const BYE_GRACE_MS = 4_000;
+const SILENCE_MS = 3 * 60_000;
+let lastSeen = Date.now();
+let byeTimer = null;
+
+function seen() {
+  lastSeen = Date.now();
+  clearTimeout(byeTimer);
+}
+
+function shutdown(reason) {
+  log(`Editör kapanıyor (${reason}).`);
+  // Anything waiting to go out is sent first, so no edit is lost.
+  if (state.phase === "waiting") runPublish();
+  process.exit(0);
+}
+
+function goodbye() {
+  clearTimeout(byeTimer);
+  // A reload says goodbye and comes straight back; only stop if it doesn't.
+  byeTimer = setTimeout(() => {
+    if (Date.now() - lastSeen >= BYE_GRACE_MS) shutdown("pencere kapandı");
+  }, BYE_GRACE_MS);
+}
+
+setInterval(() => {
+  if (Date.now() - lastSeen > SILENCE_MS && !busy) shutdown("pencere açık değil");
+}, 15_000).unref();
 
 function status() {
   let pending = [];
@@ -220,6 +262,12 @@ async function handle(req, res) {
 
   const [, resource, name] = parts;
 
+  if (resource === "bye" && req.method === "POST") {
+    goodbye();
+    return send(res, 200, { ok: true });
+  }
+  seen();
+
   if (resource === "status" && req.method === "GET") return send(res, 200, status());
 
   if (resource === "posts" && !name && req.method === "GET") return send(res, 200, listPosts());
@@ -322,14 +370,9 @@ server.on("error", (err) => {
 
 server.listen(PORT, "127.0.0.1", () => {
   log(`Yazı editörü açık: http://127.0.0.1:${PORT}`);
-  log("Bu pencere açık kaldıkça editör çalışır. Kapatınca editör de kapanır.");
+  seen();
   openApp();
 });
 
-// Send anything still waiting before the window closes.
-for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) {
-  process.on(sig, () => {
-    if (state.phase === "waiting") runPublish();
-    process.exit(0);
-  });
-}
+// Send anything still waiting before the process is stopped.
+for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) process.on(sig, () => shutdown(sig));
