@@ -41,9 +41,9 @@ export default async function CV({ params }: PageProps<"/[lang]/cv">) {
         <div className="flex flex-wrap justify-between gap-x-4">
           <p>
             <span className="font-medium">{education.degree[lang]}</span>
-            {education.school && <span className="text-muted">, {education.school}</span>}
+            <span className="text-muted">, {education.school[lang]}</span>
           </p>
-          {education.years && <p className="font-mono text-xs leading-6 text-muted">{education.years}</p>}
+          <p className="font-mono text-xs leading-6 text-muted">{education.years[lang]}</p>
         </div>
       </section>
 

@@ -14,8 +14,8 @@ export const profile = {
   role: { tr: "Yazılım mühendisliği öğrencisi", en: "Software engineering student" } as T,
   // Short intro on the home page.
   intro: {
-    tr: "Yazılım mühendisliği okuyorum. Derslerin dışında kendi araçlarımı yazıyorum: yapay zeka ajanları için bir oyun motoru, bir video editörü, sıfırdan eğittiğim Türkçe bir dil modeli ve bir blockchain. Bu sitede ne yaptığımı ve yaparken ne öğrendiğimi paylaşıyorum.",
-    en: "I study software engineering. Outside of class I build my own tools: a game engine for AI agents, a video editor, a Turkish language model trained from scratch, and a blockchain. This site is where I share what I make and what I learn along the way.",
+    tr: "Yaşar Üniversitesi'nde yazılım mühendisliği okuyorum. Derslerin dışında kendi araçlarımı yazıyorum: yapay zeka ajanları için bir oyun motoru, bir video editörü, sıfırdan eğittiğim Türkçe bir dil modeli ve bir blockchain. Bu sitede ne yaptığımı ve yaparken ne öğrendiğimi paylaşıyorum.",
+    en: "I study software engineering at Yaşar University. Outside of class I build my own tools: a game engine for AI agents, a video editor, a Turkish language model trained from scratch, and a blockchain. This site is where I share what I make and what I learn along the way.",
   } as T,
   // What you are working on right now. Keep it to one sentence.
   now: {
@@ -25,12 +25,12 @@ export const profile = {
   // Longer text for the About page. Each entry is a paragraph.
   about: {
     tr: [
-      "Merhaba, ben Ersin. Yazılım mühendisliği öğrencisiyim.",
+      "Merhaba, ben Ersin. İzmir'de, Yaşar Üniversitesi'nde yazılım mühendisliği okuyorum.",
       "Bir şeyi en iyi, onu kendim yaparak öğreniyorum. Dil modellerinin nasıl çalıştığını merak edince hazır bir model kullanmak yerine tokenizer'ından eğitim döngüsüne kadar kendim yazdım. Blockchain'i anlamak için Rust'ta kendi zincirimi kurdum. Kullandığım video editöründen sıkılınca kendi editörümü yazdım.",
       "Son zamanlarda en çok, yapay zeka ajanlarıyla birlikte yazılım geliştirmek ilgimi çekiyor. Ludra bu merakın sonucu: oyunları bir ajanın okuyup test edebileceği biçimde tanımlayan, açık kaynak bir oyun motoru.",
     ],
     en: [
-      "Hi, I'm Ersin. I'm a software engineering student.",
+      "Hi, I'm Ersin. I study software engineering at Yaşar University in İzmir.",
       "I learn things best by building them. When I got curious about how language models work, I wrote one myself, from the tokenizer to the training loop, instead of using a ready-made model. To understand blockchains I built my own chain in Rust. When my video editor started to annoy me, I wrote my own.",
       "Lately I'm most interested in building software together with AI agents. Ludra came out of that: an open-source game engine that describes games in a form an agent can read and test.",
     ],
@@ -223,8 +223,7 @@ export const courses: T[] = [
 ];
 
 export const education = {
-  // Fill in your university and years.
-  school: "",
+  school: { tr: "Yaşar Üniversitesi", en: "Yaşar University" } as T,
   degree: { tr: "Yazılım Mühendisliği (Lisans)", en: "B.Sc. Software Engineering" } as T,
-  years: "",
+  years: { tr: "2023 – 2028 (beklenen)", en: "2023 – 2028 (expected)" } as T,
 };
