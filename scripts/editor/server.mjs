@@ -257,6 +257,8 @@ async function handle(req, res) {
       return sendFile(res, path.join(ROOT, "node_modules", "marked", "lib", "marked.esm.js"));
     if (parts[0] === "blog") return sendFile(res, inside(IMAGES_DIR, ...parts.slice(1)));
     if (parts[0] === "ersin-avatar.jpg") return sendFile(res, path.join(ROOT, "public", "ersin-avatar.jpg"));
+    // Same icon as the website.
+    if (parts[0] === "icon.svg") return sendFile(res, path.join(ROOT, "src", "app", "icon.svg"));
     return send(res, 404, { error: "Bulunamadı" });
   }
 
