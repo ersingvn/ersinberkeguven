@@ -19,3 +19,4 @@ Satır içi `kod` ve bir [link](https://example.com).
 console.log("merhaba");
 ```
 ![Ekran Görüntüsü](/blog/deneme-cigir-acan-editor/ekran-goruntusu.png)
+Sonradan eklenen satır.
