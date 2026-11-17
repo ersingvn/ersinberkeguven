@@ -41,7 +41,7 @@ export const profile = {
     x: "https://x.com/onlyfener_1",
     // Fill these in to show them on the site; leave empty to hide.
     email: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/ersinberkeguven/",
   },
   siteSource: "",
 };
