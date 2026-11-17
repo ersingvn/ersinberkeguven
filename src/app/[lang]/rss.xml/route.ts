@@ -1,5 +1,5 @@
 import { profile } from "@/content/site";
-import { isLocale, locales } from "@/lib/i18n";
+import { isLocale, isoDate, locales } from "@/lib/i18n";
 import { listPosts } from "@/lib/posts";
 import { siteUrl } from "@/lib/site-url";
 
@@ -23,7 +23,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ lang: s
       <title>${esc(p.title)}</title>
       <link>${url}</link>
       <guid>${url}</guid>
-      <pubDate>${new Date(`${p.date}T12:00:00Z`).toUTCString()}</pubDate>
+      <pubDate>${new Date(isoDate(p.date)).toUTCString()}</pubDate>
       <description>${esc(p.summary)}</description>
     </item>`;
     })

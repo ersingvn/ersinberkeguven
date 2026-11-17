@@ -79,13 +79,37 @@ export function getDict(locale: Locale): Dict {
 
 const intlLocale = (locale: Locale) => (locale === "tr" ? "tr-TR" : "en-GB");
 
-export function formatDate(iso: string, locale: Locale) {
-  return new Date(`${iso}T12:00:00Z`).toLocaleDateString(intlLocale(locale), {
+/*
+ * Post dates are written as "2026-11-17" or "2026-11-17 18:22".
+ * The time is Turkey time (Europe/Istanbul, UTC+3) and is shown as written.
+ */
+function splitDate(value: string) {
+  const [date, time] = value.trim().split(/[ T]/);
+  return { date, time: /^\d{2}:\d{2}$/.test(time ?? "") ? time : undefined };
+}
+
+/** "2026-11-17 18:22" → { day: "17 Kasım 2026", time: "18:22" } */
+export function dateParts(value: string, locale: Locale) {
+  const { date, time } = splitDate(value);
+  const day = new Date(`${date}T12:00:00Z`).toLocaleDateString(intlLocale(locale), {
     year: "numeric",
     month: "long",
     day: "numeric",
     timeZone: "UTC",
   });
+  return { day, time };
+}
+
+/** "2026-11-17 18:22" → "17 Kasım 2026, 18:22" / "17 November 2026, 18:22" */
+export function formatDate(value: string, locale: Locale) {
+  const { day, time } = dateParts(value, locale);
+  return time ? `${day}, ${time}` : day;
+}
+
+/** Machine-readable form for <time dateTime> and RSS. */
+export function isoDate(value: string) {
+  const { date, time } = splitDate(value);
+  return time ? `${date}T${time}:00+03:00` : date;
 }
 
 /** "2026-10" → "Ekim 2026" / "October 2026" */

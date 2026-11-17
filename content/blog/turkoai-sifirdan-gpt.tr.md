@@ -1,6 +1,6 @@
 ---
 title: turkoAI: Türkçe bir dil modelini sıfırdan yazmak
-date: 2026-11-17
+date: 2026-11-17 17:03
 summary: Hazır model kullanmadan küçük bir Türkçe GPT yazdım. Nasıl çalıştığı ve neler öğrendiğim.
 ---
 

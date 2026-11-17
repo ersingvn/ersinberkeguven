@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Project } from "@/content/site";
-import { formatDate, type Locale } from "@/lib/i18n";
+import { dateParts, isoDate, type Locale } from "@/lib/i18n";
 import type { Post } from "@/lib/posts";
 
 export function SectionTitle({ children, action }: { children: React.ReactNode; action?: React.ReactNode }) {
@@ -50,8 +50,9 @@ export function PostList({ posts, lang }: { posts: Post[]; lang: Locale }) {
             href={`/${lang}/blog/${p.slug}`}
             className="group grid gap-1 py-5 no-underline sm:grid-cols-[9rem_1fr] sm:gap-6"
           >
-            <time dateTime={p.date} className="font-mono text-xs leading-6 text-muted">
-              {formatDate(p.date, lang)}
+            <time dateTime={isoDate(p.date)} className="font-mono text-xs leading-6 text-muted">
+              {dateParts(p.date, lang).day}
+              {dateParts(p.date, lang).time && <span className="block leading-4 text-muted/70">{dateParts(p.date, lang).time}</span>}
             </time>
             <span>
               {p.draft && <DraftBadge />}

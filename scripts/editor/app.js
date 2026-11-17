@@ -40,15 +40,28 @@ async function api(method, url, body, raw) {
 
 const slugOf = (file) => file.replace(/\.(tr|en)\.md$/, "");
 const clock = (t) => new Date(t).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
-const longDate = (iso, lang) =>
-  iso
-    ? new Date(`${iso}T12:00:00Z`).toLocaleDateString(lang === "en" ? "en-GB" : "tr-TR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZone: "UTC",
-      })
-    : "";
+// Same format as the site: "17 Kasım 2026, 18:22" (Turkey time, shown as written).
+const longDate = (value, lang) => {
+  const [d, t] = (value || "").split(" ");
+  if (!d) return "";
+  const day = new Date(`${d}T12:00:00Z`).toLocaleDateString(lang === "en" ? "en-GB" : "tr-TR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+  return t ? `${day}, ${t}` : day;
+};
+
+/** Now in Turkey time, as ["YYYY-MM-DD", "HH:mm"]. */
+function nowInTurkey() {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Istanbul", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(new Date())
+      .map((x) => [x.type, x.value]),
+  );
+  return [`${p.year}-${p.month}-${p.day}`, `${p.hour}:${p.minute}`];
+}
 
 let toastTimer;
 function toast(msg) {
@@ -164,7 +177,9 @@ async function openPost(file) {
   $("panes").hidden = $("bar").hidden = $("foot").hidden = false;
   $("title").value = cur.title;
   $("summary").value = cur.summary;
-  $("date").value = cur.date;
+  const [d, t] = cur.date.split(" ");
+  $("date").value = d || "";
+  $("time").value = t || "";
   $("lang").value = cur.lang;
   $("lang").disabled = cur.published;
   $("lang").title = cur.published ? "Yayındaki bir yazının dili değiştirilemez" : "";
@@ -190,7 +205,7 @@ function closeEditor() {
 function readForm() {
   cur.title = $("title").value.replace(/\n/g, " ");
   cur.summary = $("summary").value;
-  cur.date = $("date").value;
+  cur.date = $("time").value ? `${$("date").value} ${$("time").value}` : $("date").value;
   cur.lang = $("lang").value;
   cur.body = $("body").value;
 }
@@ -356,6 +371,12 @@ async function publishNow() {
       ok: "Yayınla",
     });
     if (!ok) return;
+    // The post is dated the moment it goes out.
+    const [d, t] = nowInTurkey();
+    $("date").value = d;
+    $("time").value = t;
+    readForm();
+    renderPreview();
     cur.draft = false;
     dirty = true;
   }
@@ -525,8 +546,8 @@ $("file").onchange = (e) => {
   e.target.value = "";
 };
 
-for (const id of ["title", "summary", "date", "lang", "body"]) {
-  $(id).addEventListener(id === "date" || id === "lang" ? "change" : "input", () => {
+for (const id of ["title", "summary", "date", "time", "lang", "body"]) {
+  $(id).addEventListener(["date", "time", "lang"].includes(id) ? "change" : "input", () => {
     if (id === "title" || id === "body") autosize($(id));
     changed();
   });

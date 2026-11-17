@@ -55,7 +55,27 @@ export function writePost(abs, meta, body) {
   fs.writeFileSync(abs, text.endsWith("\n") ? text : `${text}\n`);
 }
 
-export const isDraft =(file) => file.endsWith(".md") && readFront(file)?.meta.draft === "true";
+/** Current Turkey time as "YYYY-MM-DD HH:mm", whatever the PC's time zone. */
+export function nowStamp() {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Istanbul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    })
+      .formatToParts(new Date())
+      .map((x) => [x.type, x.value]),
+  );
+  return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}`;
+}
+
+const hasTime = (date) => /\d{2}:\d{2}\s*$/.test(date || "");
+
+export const isDraft = (file) => file.endsWith(".md") && readFront(file)?.meta.draft === "true";
 
 /** Files under content/blog or public/blog that git sees as changed. */
 function changedFiles() {
@@ -86,6 +106,15 @@ export function publish() {
   const drafts = changed.filter(isDraft);
   const ready = changed.filter((f) => !isDraft(f));
   if (!ready.length) return { sent: false, drafts, message: "Gönderilecek değişiklik yok." };
+
+  // A post going out for the first time gets the moment it was published
+  // (Turkey time), unless its author already wrote a time.
+  const onSite = trackedPosts();
+  for (const f of ready) {
+    if (!f.endsWith(".md") || onSite.has(f)) continue;
+    const post = readFront(f);
+    if (post && !hasTime(post.meta.date)) writePost(path.join(ROOT, f), { ...post.meta, date: nowStamp(), draft: false }, post.body);
+  }
 
   const posts = ready.filter((f) => f.endsWith(".md"));
   const titles = posts.map((f) => readFront(f)?.meta.title).filter(Boolean);
