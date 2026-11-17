@@ -54,6 +54,7 @@ export function PostList({ posts, lang }: { posts: Post[]; lang: Locale }) {
               {formatDate(p.date, lang)}
             </time>
             <span>
+              {p.draft && <DraftBadge />}
               <span className="font-medium group-hover:text-accent">{p.title}</span>
               {p.lang !== lang && (
                 <span className="ml-2 font-mono text-[0.7rem] text-muted uppercase">{p.lang}</span>
@@ -64,6 +65,15 @@ export function PostList({ posts, lang }: { posts: Post[]; lang: Locale }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+/** Only visible locally: drafts are left out of the live site. */
+export function DraftBadge() {
+  return (
+    <span className="mr-2 rounded border border-accent px-1.5 py-0.5 align-middle font-mono text-[0.65rem] text-accent uppercase">
+      draft
+    </span>
   );
 }
 

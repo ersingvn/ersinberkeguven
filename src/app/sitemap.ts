@@ -2,9 +2,7 @@ import type { MetadataRoute } from "next";
 import { projects } from "@/content/site";
 import { locales } from "@/lib/i18n";
 import { allSlugs } from "@/lib/posts";
-
-// Change this if the site moves to its own domain.
-const base = process.env.SITE_URL ?? "https://ersinberkeguven.vercel.app";
+import { siteUrl as base } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [

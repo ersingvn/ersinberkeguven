@@ -21,7 +21,7 @@ npm run build    # yayın öncesi kontrol
 | Blog yazıları | `content/blog/<slug>.tr.md` ve isteğe bağlı `<slug>.en.md` |
 | Renkler | `src/app/globals.css` (`:root` açık tema, `prefers-color-scheme: dark` koyu tema) |
 
-Yeni bir yazı için `content/blog` içine bir dosya aç:
+Yazı yayınlamanın tüm yolları (bilgisayardan, telefondan, taslaklar, resimler) için: **[YAZI-REHBERI.md](YAZI-REHBERI.md)**. Kısaca: `npm run yazi -- "Başlık"` ya da `content/blog` içine bir dosya aç:
 
 ```md
 ---

@@ -6,6 +6,7 @@ import { LangSwitch } from "@/components/LangSwitch";
 import { Nav } from "@/components/Nav";
 import { profile, socialLinks } from "@/content/site";
 import { getDict, isLocale, locales } from "@/lib/i18n";
+import { siteUrl } from "@/lib/site-url";
 import "../globals.css";
 
 const sans = IBM_Plex_Sans({
@@ -30,7 +31,11 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   return {
     title: { default: profile.name, template: `%s · ${profile.name}` },
     description: profile.intro[lang],
-    alternates: { languages: { tr: "/tr", en: "/en" } },
+    metadataBase: new URL(siteUrl),
+    alternates: {
+      languages: { tr: "/tr", en: "/en" },
+      types: { "application/rss+xml": `/${lang}/rss.xml` },
+    },
     openGraph: { title: profile.name, description: profile.intro[lang], type: "website" },
   };
 }

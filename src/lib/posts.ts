@@ -51,12 +51,15 @@ function parse(file: string): Post | null {
   };
 }
 
+// Drafts show up (marked) while you run `npm run dev`, and never on the live site.
+const showDrafts = process.env.NODE_ENV === "development";
+
 function all(): Post[] {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
     .map(parse)
-    .filter((p): p is Post => p !== null && !p.draft)
+    .filter((p): p is Post => p !== null && (showDrafts || !p.draft))
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
