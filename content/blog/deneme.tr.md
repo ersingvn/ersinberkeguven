@@ -1,7 +1,7 @@
 ---
-title: Deneme
+title: efverbvef
 date: 2026-11-17 18:22
-summary: alt deneme
+summary: alt denedveeme
 ---
 
 bu bir deneme cümlesidir.
